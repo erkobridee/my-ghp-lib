@@ -22,6 +22,7 @@
   "scripts": {
     "postinstall": "is-ci || npx husky install",
     "clean:dist-pack": "npx rimraf dist-pack",
+    "clean": "run-p clean:dist-pack",
     "prettify": "prettier --write src",
     "check:lint": "npx eslint src/**/*.ts",
     "check:typescript": "npx tsc --noEmit",
