@@ -23,7 +23,7 @@ jobs:
       - name: Build npm package
         run: npm run build
 
-      - name: Deploy npm package
+      - name: Deploy github package
         run: |
           cd dist-pack
           echo -e "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
