@@ -7,7 +7,6 @@
     "outputBrowserDir": "dist-browser",
     "outputDir": "dist-pack",
     "bundleDir": "dist",
-    "declarationDir": "types",
     "bundleEntry": "src/index.ts",
     "browserEntry": "src/index.ts",
     "moduleEntries": [
@@ -15,7 +14,7 @@
     ]
   },
   "packageFilesMap": {
-    "types": "types",
+    "types": ".",
     "main": "dist/cjs.js",
     "module": "dist/esm.js",
     "browser": "dist/umd.min.js"

@@ -22,7 +22,6 @@ const defaultBuildConfig = {
   outputBrowserDir: 'dist-browser',
   outputDir: 'dist-pack',
   bundleDir: 'dist',
-  declarationDir: 'types',
   bundleEntry: 'src/index.ts',
   browserEntry: 'src/index.ts',
   moduleEntries: [],
@@ -33,7 +32,6 @@ const {
   outputBrowserDir,
   outputDir,
   bundleDir,
-  declarationDir,
   bundleEntry,
   browserEntry = defaultBuildConfig.browserEntry,
   moduleEntries = [],
@@ -46,7 +44,7 @@ const tsPluginConfig = {
   tsconfigOverride: {
     compilerOptions: {
       declaration: true,
-      declarationDir: `${outputDir}/${declarationDir}`,
+      declarationDir: `${outputDir}`,
       sourceMap: true,
     },
   },
