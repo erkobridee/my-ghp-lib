@@ -20,8 +20,11 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
-      - name: Build npm package
+      - name: Build package
         run: npm run build
+
+      - name: Browser files into dist-browser.zip
+        run: zip dist-browser -r dist-browser
 
       - name: Deploy github package
         run: |
@@ -36,6 +39,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist-browser/*
+          files: dist-browser.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
