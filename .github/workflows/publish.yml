@@ -1,0 +1,34 @@
+name: CD - publish package
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Build npm package
+        run: npm run build
+
+      - name: Deploy npm package
+        run: |
+          cd dist-pack
+          echo -e "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> .npmrc
+          echo -e "@erkobridee:registry=https://npm.pkg.github.com/" >> .npmrc
+          echo -e "always-auth=true" >> .npmrc
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
