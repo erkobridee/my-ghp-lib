@@ -1,6 +1,6 @@
 {
   "name": "@erkobridee/my-ghp-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "my first library deployed on the github packages",
   "buildConfig": {
     "libraryName": "MyGHP",
