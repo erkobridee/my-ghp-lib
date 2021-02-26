@@ -35,6 +35,7 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
-        files: dist-browser/*
+        with:
+          files: dist-browser/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
