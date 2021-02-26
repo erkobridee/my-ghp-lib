@@ -1,8 +1,3 @@
-export const message = 'hello world';
+export const libraryName = 'my-ghp-lib';
 
-console.log('hello world');
-
-export default message;
-
-export * as sample1 from './sample1';
-export * as sample2 from './sample2';
+export * as math from './math';

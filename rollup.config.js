@@ -9,6 +9,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
 
+import kebabCase from 'lodash.kebabCase';
+
 //----------------------------------------------------------------------------//
 
 import pkg from './package.json';
@@ -17,21 +19,27 @@ import pkg from './package.json';
 
 const defaultBuildConfig = {
   libraryName: 'MyLibrary',
+  outputBrowserDir: 'dist-browser',
   outputDir: 'dist-pack',
   bundleDir: 'dist',
   declarationDir: 'types',
   bundleEntry: 'src/index.ts',
+  browserEntry: 'src/index.ts',
   moduleEntries: [],
 };
 
 const {
   libraryName,
+  outputBrowserDir,
   outputDir,
   bundleDir,
   declarationDir,
   bundleEntry,
+  browserEntry = defaultBuildConfig.browserEntry,
   moduleEntries = [],
 } = { ...defaultBuildConfig, ...(pkg.buildConfig || {}) };
+
+const libraryFileName = kebabCase(libraryName);
 
 const tsPluginConfig = {
   useTsconfigDeclarationDir: true,
@@ -63,28 +71,35 @@ const bundleConfig = {
       format: 'cjs',
       exports: 'named',
     },
+  ],
+  plugins: rollupCommonPlugins,
+};
+
+const browserConfig = {
+  input: browserEntry,
+  output: [
     {
-      file: `${outputDir}/${bundleDir}/umd.js`,
+      file: `${outputBrowserDir}/${libraryFileName}.js`,
       format: 'umd',
       name: libraryName,
       exports: 'named',
     },
     {
-      file: `${outputDir}/${bundleDir}/umd-dev.js`,
+      file: `${outputBrowserDir}/${libraryFileName}-dev.js`,
       format: 'umd',
       name: libraryName,
       exports: 'named',
       sourcemap: true,
     },
     {
-      file: `${outputDir}/${bundleDir}/umd.min.js`,
+      file: `${outputBrowserDir}/${libraryFileName}.min.js`,
       format: 'umd',
       name: libraryName,
       exports: 'named',
       plugins: [terser()],
     },
     {
-      file: `${outputDir}/${bundleDir}/umd-dev.min.js`,
+      file: `${outputBrowserDir}/${libraryFileName}-dev.min.js`,
       format: 'umd',
       name: libraryName,
       exports: 'named',
@@ -108,5 +123,5 @@ const modulesConfig = {
 };
 
 export default moduleEntries.length > 0
-  ? [bundleConfig, modulesConfig]
-  : bundleConfig;
+  ? [bundleConfig, browserConfig, modulesConfig]
+  : [bundleConfig, browserConfig];
