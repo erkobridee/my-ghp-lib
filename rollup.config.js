@@ -17,6 +17,18 @@ import pkg from './package.json';
 
 //----------------------------------------------------------------------------//
 
+const getModuleName = (filepath) => {
+  console.log(filepath);
+  return `${filepath}`
+    .replace(/^src\//, '')
+    .replace(/\/index.[jt]sx?$/, '')
+    .split('/')
+    .join('_')
+    .toLowerCase();
+};
+
+//----------------------------------------------------------------------------//
+
 const defaultBuildConfig = {
   libraryName: 'MyLibrary',
   outputBrowserDir: 'dist-browser',
@@ -108,18 +120,24 @@ const browserConfig = {
   plugins: rollupCommonPlugins,
 };
 
-// https://rollupjs.org/guide/en/#outputpreservemodulesroot
-const modulesConfig = {
-  input: moduleEntries,
-  output: {
-    format: 'es',
-    dir: outputDir,
-    preserveModules: true,
-    preserveModulesRoot: 'src',
-  },
-  plugins: rollupCommonPlugins,
-};
+let rollupConfig = [bundleConfig, browserConfig];
 
-export default moduleEntries.length > 0
-  ? [bundleConfig, browserConfig, modulesConfig]
-  : [bundleConfig, browserConfig];
+if (Array.isArray(moduleEntries) && moduleEntries.length > 0) {
+  // https://rollupjs.org/guide/en/#outputpreservemodulesroot
+  const modulesConfig = moduleEntries.map((entry) => ({
+    input: moduleEntries,
+    output: {
+      name: `${libraryName}_${getModuleName(entry)}`,
+      format: 'umd',
+      exports: 'named',
+      dir: outputDir,
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
+    plugins: rollupCommonPlugins,
+  }));
+
+  rollupConfig = [...rollupConfig, ...modulesConfig];
+}
+
+export default rollupConfig;
