@@ -32,3 +32,9 @@ jobs:
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        files: dist-browser/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
