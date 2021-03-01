@@ -31,3 +31,9 @@
     - [About GitHub Packages | GitHub Docs](https://docs.github.com/en/packages/learn-github-packages/about-github-packages)
 
     - [Configuring npm for use with GitHub Packages | GitHub Docs](https://docs.github.com/en/packages/guides/configuring-npm-for-use-with-github-packages)
+
+- [Creating a template repository in GitHub - DEV Community 👩‍💻👨‍💻](https://dev.to/alexandrshy/creating-a-template-repository-in-github-1d05) - 2020/06/01
+
+  - [[GitHub] Alexandrshy/como-north](https://github.com/Alexandrshy/como-north) - GitHub template for starting new projects
+
+  - [[YouTube] Creating a template repository in GitHub | Simple Layout](https://www.youtube.com/watch?v=EjeY-7EtDiM)
