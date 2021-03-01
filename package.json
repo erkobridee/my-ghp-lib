@@ -25,7 +25,7 @@
     "clean:dist-browser": "npx rimraf dist-browser",
     "clean": "run-p clean:dist-pack clean:dist-browser",
     "prettify": "prettier --write src",
-    "check:lint": "npx eslint src/**/*.ts",
+    "check:lint": "npx eslint 'src/**/*.{js,ts}'",
     "check:typescript": "npx tsc --noEmit",
     "check": "run-s prettify check:lint check:typescript",
     "copy:readme": "npx cpy 'README.md' 'dist-pack'",
