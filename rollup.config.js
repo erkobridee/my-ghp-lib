@@ -66,6 +66,7 @@ const tsPluginConfig = {
 };
 
 const babelConfig = {
+  babelHelpers: 'bundled',
   exclude: 'node_modules/**',
   extensions: ['.js', '.jsx', '.ts', '.tsx'],
 };
